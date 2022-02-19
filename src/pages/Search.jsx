@@ -77,12 +77,14 @@ class Search extends Component {
           collectionId,
           artistName,
           collectionName,
+          artworkUrl100,
         }) => (
           <li key={ collectionId }>
             <Link
               data-testid={ `link-to-album-${collectionId}` }
               to={ `/album/${collectionId}` }
             >
+              <img src={ artworkUrl100 } alt={ `arte do ${collectionName}` } />
               <p>{artistName}</p>
               <p>{collectionName}</p>
             </Link>
