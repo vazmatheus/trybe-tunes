@@ -49,10 +49,10 @@ class Album extends Component {
   }
 }
 
-export default Album;
-
 Album.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.objectOf(PropTypes.number),
   }),
 }.isRequired;
+
+export default Album;
