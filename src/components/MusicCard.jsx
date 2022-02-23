@@ -25,12 +25,14 @@ class MusicCard extends Component {
     });
     if (checked) {
       await addSong(music);
+      this.setState({
+        isLoading: false,
+      });
     } else {
       await removeSong(music);
+      const { onChangeFavs } = this.props;
+      if (onChangeFavs) onChangeFavs(music.trackId);
     }
-    this.setState({
-      isLoading: false,
-    });
   }
 
   getFavorites = async () => {
