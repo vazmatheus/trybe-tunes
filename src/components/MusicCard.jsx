@@ -32,6 +32,11 @@ class MusicCard extends Component {
       await removeSong(music);
       const { onChangeFavs } = this.props;
       if (onChangeFavs) onChangeFavs(music.trackId);
+      else {
+        this.setState({
+          isLoading: false,
+        });
+      }
     }
   }
 
