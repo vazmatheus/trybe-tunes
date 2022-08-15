@@ -67,12 +67,12 @@ class MusicCard extends Component {
         <h4>{music.trackName}</h4>
         <audio data-testid="audio-component" src={ music.previewUrl } controls>
           <track kind="captions" />
-          O seu navegador não suporta o elemento
+          Your browser does not support the element
           <code>audio</code>
           .
         </audio>
         <label htmlFor="favorite">
-          Favorita
+          Favorite
           <input
             type="checkbox"
             name="favorite"

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea, CardHeader } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 
@@ -46,32 +50,30 @@ class Search extends Component {
     } = this.state;
     return (
       <div data-testid="page-search">
-        <Header />
         <form>
-          <label htmlFor="searchArtist">
-            Artista
-            <input
-              type="text"
-              name="searchArtist"
-              id="searchArtist"
-              data-testid="search-artist-input"
-              value={ searchArtist }
-              onChange={ this.handleChange }
+          <TextField
+            variant="standard"
+            sx={ { my: 2, width: '100%' } }
+            label="Artist"
+            name="searchArtist"
+            id="searchArtist"
+            data-testid="search-artist-input"
+            value={ searchArtist }
+            onChange={ this.handleChange }
 
-            />
-          </label>
-          <button
-            type="button"
+          />
+          <Button
+            variant="contained"
             data-testid="search-artist-button"
             disabled={ searchArtist.length < minSearchArtistLength }
             onClick={ this.searchAlbum }
           >
-            Pesquisar
-          </button>
+            Search
+          </Button>
         </form>
         {isLoading && <Loading /> }
         {returnAlbums.length > 0 && (
-          <p>{`Resultado de álbuns de: ${bandOrArtist}`}</p>
+          <p>{`Album results by: ${bandOrArtist}`}</p>
         )}
         {returnAlbums.map(({
           collectionId,
@@ -79,19 +81,27 @@ class Search extends Component {
           collectionName,
           artworkUrl100,
         }) => (
-          <li key={ collectionId }>
-            <Link
-              data-testid={ `link-to-album-${collectionId}` }
-              to={ `/album/${collectionId}` }
-            >
-              <img src={ artworkUrl100 } alt={ `arte do ${collectionName}` } />
-              <p>{artistName}</p>
-              <p>{collectionName}</p>
-            </Link>
-          </li>
+          <Card sx={ { mb: 2 } } key={ collectionId }>
+            <CardActionArea>
+              <Link
+                data-testid={ `link-to-album-${collectionId}` }
+                to={ `/album/${collectionId}` }
+              >
+                <CardHeader
+                  title={ collectionName }
+                  subheader={ artistName }
+                />
+                <CardMedia
+                  component="img"
+                  image={ artworkUrl100 }
+                  alt={ `art of ${collectionName}` }
+                />
+              </Link>
+            </CardActionArea>
+          </Card>
         ))}
         {searchFound && returnAlbums.length === 0 ? (
-          <p>Nenhum álbum foi encontrado</p>
+          <p>No albums were found</p>
         ) : (
           ''
         )}

@@ -1,43 +1,77 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import * as React from 'react';
+import { Component } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { Link as RouterLink } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import Loading from './Loading';
-import { getUser } from '../services/userAPI';
 
-class Header extends Component {
+class ResponsiveAppBar extends Component {
   constructor() {
     super();
     this.state = {
-      user: '',
       isLoading: true,
     };
   }
 
   componentDidMount() {
-    this.showUser();
+    this.showLoading();
   }
 
-  showUser = async () => {
-    const loggedUser = await getUser();
+  showLoading = async () => {
     this.setState({
-      user: loggedUser.name,
       isLoading: false,
     });
   };
 
   render() {
-    const { user, isLoading } = this.state;
+    const { isLoading } = this.state;
     if (isLoading) return <Loading />;
     return (
-      <header data-testid="header-component">
-        <h2 data-testid="header-user-name">{ user }</h2>
-        <nav>
-          <Link to="/search" data-testid="link-to-search">Search</Link>
-          <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
-          <Link to="/profile" data-testid="link-to-profile">Profile</Link>
-        </nav>
-      </header>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={ {
+                mr: 2,
+                display: 'flex',
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              } }
+            >
+              TrybeTunes
+            </Typography>
+            <Box sx={ { flexGrow: 1, display: 'flex' } }>
+              <Button
+                sx={ { my: 2, color: 'white', display: 'block' } }
+                component={ RouterLink }
+                to="/"
+              >
+                Search
+              </Button>
+              <Button
+                sx={ { my: 2, color: 'white', display: 'block' } }
+                component={ RouterLink }
+                to="/favorites"
+              >
+                Favorites
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
     );
   }
 }
 
-export default Header;
+export default ResponsiveAppBar;

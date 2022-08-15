@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 
@@ -33,7 +32,6 @@ class Album extends Component {
     const { albums, bandOrArtist, albumName } = this.state;
     return (
       <div data-testid="page-album">
-        <Header />
         <h2 data-testid="artist-name">{ bandOrArtist}</h2>
         <h3 data-testid="album-name">{ albumName }</h3>
         <section>

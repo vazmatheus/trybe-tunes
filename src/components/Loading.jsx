@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
-class Loading extends Component {
-  render() {
-    return (
-      <div>
-        <p>Carregando...</p>
-      </div>
-    );
-  }
+export default function Loading() {
+  return (
+    <Box sx={ { display: 'flex', justifyContent: 'center' } }>
+      <CircularProgress />
+    </Box>
+  );
 }
-
-export default Loading;
